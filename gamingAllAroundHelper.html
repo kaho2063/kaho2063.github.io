@@ -13,9 +13,38 @@
     /* backgroundを移動させる */
     100% { background-position-x: 200%; }
   }
+  .gaming > img {
+    --border-color: #ffab3c;
+
+    /* ランダムな太さの先を重ねる */
+    background-image: repeating-conic-gradient(
+      transparent 0,
+      transparent 13deg,
+      var(--border-color) 13deg,
+      var(--border-color) 16deg
+    ),
+      repeating-conic-gradient(
+        transparent 0,
+        transparent 20deg,
+        var(--border-color) 20deg,
+        var(--border-color) 23deg
+      ),
+      repeating-conic-gradient(
+        transparent 0,
+        transparent 5deg,
+        var(--border-color) 5deg,
+        var(--border-color) 8deg
+      ),
+      repeating-conic-gradient(
+        transparent 0,
+        transparent 2deg,
+        var(--border-color) 2deg,
+        var(--border-color) 3deg
+      );
+  }
 </style>
 </head>
 <body>
-  <img class="gaming" src="./helper.png">
+  <div class="gaming"><img src="./helper.png"></div>
 </body>
 </html>
