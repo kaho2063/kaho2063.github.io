@@ -3,6 +3,17 @@
 <head>
   <meta charset="utf-8">
   <title>ゲーミングオールアラウンドヘルパー</title>
+  <style>
+  .gaming {
+    /* 横長で虹色を作る */
+    background: linear-gradient(to right, Magenta, yellow, Cyan, Magenta) 0% center/200%;
+    animation: gaming 2s linear infinite;
+  }
+  @keyframes gaming {
+    /* backgroundを移動させる */
+    100% { background-position-x: 200%; }
+  }
+</style>
 </head>
 <body>
   <img class="gaming" src="./helper.png">
