@@ -381,12 +381,11 @@
           .replace('蛇の障壁', '609010')
           .replace('受け流し', '609011')
           .replace('弱点看破', '609012')
-          .replace('幻影乱舞', '609013')
-          .replace(/^(.)/mg, '{{PopupBattle|$1')
-          .replace(/：(\d)枚/g, '|×$1}}');
+          .replace('幻影乱舞', '609013');
       };
       const getPassiveId = (text) => {
-        return text.replace('ギラギラ燃える剣', '240027')
+        return text
+          .replace('ギラギラ燃える剣', '240027')
           .replace('羽の盾', '240127')
           .replace('不安定な激情', '240227')
           .replace('熱血', '250001')
@@ -532,20 +531,62 @@
           .replace(',D@;Q7Y', '250051')
           .replace('伝令', '250151')
           .replace('昇華', '232001')
-          .replace('傷口捻り', '232002')
-          .replace(/^([^\n]+)/mg, '{{PopupPassive|$1}}');
+          .replace('傷口捻り', '232002');
       };
       const beforeText = document.getElementById('beforeText');
       const afterText = document.getElementById('afterText');
       const changeBattleText = document.getElementById('changeBattleText');
       changeBattleText.addEventListener('click', () => {
         let text = getBattleId(beforeText.value);
-        afterText.value = text.replace(/\n/g, '');
+        afterText.value = text
+          .replace(/[ 　・]*([^ 　:：|×\n]+)[ 　:：×]*([^枚\n]+)枚?\n*/g, '{{PopupBattle|$1|×$2}}');
       });
       const changePassiveText = document.getElementById('changePassiveText');
       changePassiveText.addEventListener('click', () => {
         let text = getPassiveId(beforeText.value);
-        afterText.value = text.replace(/\n/g, '');
+        afterText.value = text
+          .replace(/([^、\n・]+)/g, '{{PopupPassive|$1}}');
+      });
+      const changeDeckPage = document.getElementById('changeDeckPage');
+      changeDeckPage.addEventListener('click', () => {
+        let textArray = beforeText.value
+          .replace(/\{\{PostingDeck\n\|deckName=.+/g, '{{DeckPage')
+          .replace(/OldDeck(Set)?Table/g, 'Deck$1Table')
+          .replace(/\|numberOfPassive=\d/g, '|passiveParts=')
+          .replace(/\|passive\dCost=\d\n/g, '')
+          .replace(/\n(\|passive\d=[^\n]+)/g, '$1')
+          .replace(/\|otherPassive=\n?/g, '')
+          .replace(/\|numberOfRows=\d/g, '|battleParts=')
+          .replace(/\n(\|battle\d=[^\n]+)/g, '$1')
+          .replace(/\n\|numberOfBattle\d=([^\n])/g, '×$1')
+          .replace(/\|otherBattle=\n?/g, '')
+          .replace(/colspan="2"\{\{!\}\}/g, '')
+          .split(/\r?\n/g);
+
+        textArray = textArray.map(text => {
+          let returnValue = text;
+          if (/deckType=/g.test(text)) {
+            returnValue = text
+              .replace(/deckType=([^、・]+)/g, 'deckType={{LinkDeckType|$1}}')
+              .replace(/([、・])([^、・]+)/g, '$1{{LinkDeckType|$2}}');
+          }
+          if (/corePage=/g.test(text)) {
+            returnValue = text
+              .replace(/corePage=/g, 'coreParts=')
+              .replace(/\[\[([^\]]+のページ[^\]]*)\]\]/g, '{{PopupCorePage‎|$1}}');
+          }
+          if (/passive\d=/g.test(text)) {
+            returnValue = getPassiveId(text.replace(/([^（]+)（[^）]+）/g, '$1'))
+              .replace(/\|passive\d=(\d+)/g, '{{PopupPassive|$1}}');
+          }
+          if (/battle\d=/g.test(text)) {
+            returnValue = getBattleId(text)
+              .replace(/\|battle\d=(\d+)(×[^|]+)/g, '{{PopupBattle|$1|$2}}');
+          }
+          return returnValue;
+        });
+
+        afterText.value = textArray.join("\n");
       });
     });
   </script>
@@ -555,6 +596,7 @@
   <textarea id="beforeText">変換前</textarea>
   <button id="changeBattleText">バトルページ変換</button>
   <button id="changePassiveText">パッシブ変換</button>
+  <button id="changeDeckPage">DeckPage変換</button>
   <textarea id="afterText">変換後</textarea>
 </body>
 
