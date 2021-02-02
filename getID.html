@@ -320,6 +320,7 @@
           .replace('意思の剣', '611005')
           .replace('盲目的な信念', '611006')
           .replace('都市の意志', '611007')
+          .replace('都市の意思', '611007')
           .replace('蛇剣術', '609001')
           .replace('紫の剣', '609002')
           .replace('蛇裂き', '609003')
@@ -328,6 +329,7 @@
           .replace('毒牙', '609006')
           .replace('振り下ろす', '609007')
           .replace('巨大な蛇の衝激', '609008')
+          .replace('巨大な蛇の衝撃', '609008')
           .replace('決闘', '609009')
           .replace('蛇の障壁', '609010')
           .replace('受け流し', '609011')
@@ -360,7 +362,8 @@
           .replace('貫く', '211005')
           .replace('縦斬り', '211007')
           .replace('傷口抉り', '211003')
-          .replace('呼吸', '221001')
+          .replace('深呼吸', '220010')
+          .replace('呼吸', '240003')
           .replace('冷静', '220001')
           .replace('ツヴァイの剣術1', '220002')
           .replace('ツヴァイの剣術2', '221003')
@@ -371,7 +374,6 @@
           .replace('マージン', '220006')
           .replace('こんなときこそ！', '220007')
           .replace('休憩', '220008')
-          .replace('深呼吸', '220010')
           .replace('2段蹴り', '220009')
           .replace('鳩尾殴り', '221005')
           .replace('8級フィクサーの斬撃術', '221007')
@@ -413,7 +415,6 @@
           .replace('死の目/脱力', '240301')
           .replace('脱力', '240401')
           .replace('一撃', '240002')
-          .replace('呼吸', '240003')
           .replace('加速', '240004')
           .replace('脳震盪', '240005')
           .replace('人形の骨', '240006')
@@ -490,6 +491,7 @@
       changeBattleText.addEventListener('click', () => {
         let text = getBattleId(beforeText.value);
         afterText.value = text
+          .replace(/\(コスト\d\)/g, '')
           .replace(/[ 　・]*([^ 　:：|×\n]+)[ 　:：×]*([^枚\n]+)枚?\n*/g, '{{PopupBattle|$1|×$2}}');
       });
       const changePassiveText = document.getElementById('changePassiveText');
@@ -501,7 +503,7 @@
       const changeDeckPage = document.getElementById('changeDeckPage');
       changeDeckPage.addEventListener('click', () => {
         let textArray = beforeText.value
-          .replace(/\{\{PostingDeck\n\|deckName=.+/g, '{{DeckPage')
+          .replace(/\{\{(PostingDeck|VotingEndDeck)\n\|deckName=.+/g, '{{DeckPage')
           .replace(/OldDeck(Set)?Table/g, 'Deck$1Table')
           .replace(/\|numberOfPassive=\d/g, '|passiveParts=')
           .replace(/\|passive\dCost=\d\n/g, '')
