@@ -130,6 +130,7 @@
           .replace('射出', '403004')
           .replace('茜さす剣', '403005')
           .replace('依頼処理', '403006')
+          .replace('不吉な烙印', '611002')
           .replace('烙印', '403007')
           .replace('観測', '404001')
           .replace('チャンス到来', '404002')
@@ -141,8 +142,6 @@
           .replace('避けられぬ視線', '404008')
           .replace('幽かな記憶', '405001')
           .replace('苦痛の怒り', '405002')
-          .replace('幽かな記憶', '405015')
-          .replace('苦痛の怒り', '405016')
           .replace('墨塗り', '406001')
           .replace('鋭い刃先', '406002')
           .replace('雲の障壁', '406003')
@@ -173,6 +172,10 @@
           .replace('今がチャンスだ', '409005')
           .replace('真っ向勝負', '409006')
           .replace('死ね', '409007')
+          .replace('武器の手入れ', '410001')
+          .replace('刺して割る', '410002')
+          .replace('研磨', '410003')
+          .replace('製錬', '410004')
           .replace('死の境界', '501001')
           .replace('極剣', '501002')
           .replace('閃撃', '501003')
@@ -285,6 +288,7 @@
           .replace('一点突き', '606006')
           .replace('火炎一閃', '606007')
           .replace('内なる熱情', '606008')
+          .replace('縦切り', '607003')
           .replace('縦斬り', '607003')
           .replace('突き', '607004')
           .replace('横斬り', '607005')
@@ -313,7 +317,6 @@
           .replace('火龍斬', '610010')
           .replace('挟撃', '610011')
           .replace('ねじれた剣', '611001')
-          .replace('不吉な烙印', '611002')
           .replace('施錠', '611003')
           .replace('不吉な力', '611004')
           .replace('意志の剣', '611005')
@@ -334,7 +337,20 @@
           .replace('蛇の障壁', '609010')
           .replace('受け流し', '609011')
           .replace('弱点看破', '609012')
-          .replace('幻影乱舞', '609013');
+          .replace('幻影乱舞', '609013')
+          .replace('眞-卦', '701001')
+          .replace('最後の攻撃', '701002')
+          .replace('マッチング', '701003')
+          .replace('卦擊', '701004')
+          .replace('卦撃', '701004')
+          .replace('卦脚', '701005')
+          .replace('空の槍', '701006')
+          .replace('迅速', '701007')
+          .replace('強撃', '701008')
+          .replace('残像', '701009')
+          .replace('対峙', '701010')
+          .replace('進軍', '701011')
+          .replace('落ち着ける', '701012');
       };
       const getPassiveId = (text) => {
         return text
@@ -345,8 +361,8 @@
           .replace('臨戦無退', '250002')
           .replace('安如泰山', '250003')
           .replace('安不忘危', '250004')
-          .replace('速度', '10001')
           .replace('速度3', '10008')
+          .replace('速度', '10001')
           .replace('生半可な勇気', '200004')
           .replace('ユンの勘', '200006')
           .replace('防御術', '200005')
@@ -359,8 +375,6 @@
           .replace('非常食', '210001')
           .replace('技量', '210003')
           .replace('ファイヤーバット', '210006')
-          .replace('貫く', '211005')
-          .replace('縦斬り', '211007')
           .replace('傷口抉り', '211003')
           .replace('深呼吸', '220010')
           .replace('呼吸', '240003')
@@ -411,9 +425,9 @@
           .replace('赤い霧', '10005')
           .replace('過呼吸/疲弊', '240001')
           .replace('受け止める', '240101')
-          .replace('疲弊', '240201')
           .replace('死の目/脱力', '240301')
-          .replace('脱力', '240401')
+          .replace('死の目', '240301')
+          .replace('絆/極限の疲労', '241301')
           .replace('一撃', '240002')
           .replace('加速', '240004')
           .replace('脳震盪', '240005')
@@ -475,15 +489,20 @@
           .replace('有り余る弾丸', '251201')
           .replace('確率変動者', '250027')
           .replace('体勢変更', '250127')
-          .replace('シャオ', '150136')
-          .replace('蒲牢', '150238')
-          .replace('逆鱗', '150338')
           .replace('龍生九子', '250036')
           .replace('覇下', '250336')
           .replace(',D@;Q7Y', '250051')
           .replace('伝令', '250151')
           .replace('昇華', '232001')
-          .replace('傷口捻り', '232002');
+          .replace('傷口捻り', '232002')
+          .replace('連帯', '233001')
+          .replace('四卦', '260001')
+          .replace('ハナは皆のために', '260002')
+          .replace('皆はハナのために', '260003')
+          .replace('12フィクサー', '260004')
+          .replace('弱点把握', '243001')
+          .replace('情報把握', '243101')
+          .replace('弱点看破', '243201');
       };
       const beforeText = document.getElementById('beforeText');
       const afterText = document.getElementById('afterText');
@@ -491,6 +510,7 @@
       changeBattleText.addEventListener('click', () => {
         let text = getBattleId(beforeText.value);
         afterText.value = text
+          .replace(/１/g, '1').replace(/２/g, '2').replace(/３/g, '3')
           .replace(/\(コスト\d\)/g, '')
           .replace(/[ 　・]*([^ 　:：|×\n]+)[ 　:：×]*([^枚\n]+)枚?\n*/g, '{{PopupBattle|$1|×$2}}');
       });
@@ -498,7 +518,15 @@
       changePassiveText.addEventListener('click', () => {
         let text = getPassiveId(beforeText.value);
         afterText.value = text
-          .replace(/([^、\n・]+)/g, '{{PopupPassive|$1}}');
+          .replace(/[（(][^)）]+[)）]/g, '')
+          .replace(/[：:][0-9０-９]?コスト\d?/g, '')
+          .replace(/・?([^、\n・]+)\n*/g, '{{PopupPassive|$1}}');
+      });
+      const changeDirection = document.getElementById('changeDirection');
+      changeDirection.addEventListener('click', () => {
+        let text = beforeText.value;
+        afterText.value = text
+          .replace(/[\n・]+/g, '・');
       });
       const changeDeckPage = document.getElementById('changeDeckPage');
       changeDeckPage.addEventListener('click', () => {
@@ -551,6 +579,7 @@
   <textarea id="beforeText">変換前</textarea>
   <button id="changeBattleText">バトルページ変換</button>
   <button id="changePassiveText">パッシブ変換</button>
+  <button id="changeDirection">縦横変換</button>
   <button id="changeDeckPage">DeckPage変換</button>
   <textarea id="afterText">変換後</textarea>
 </body>
