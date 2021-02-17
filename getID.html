@@ -512,14 +512,15 @@
         afterText.value = text
           .replace(/１/g, '1').replace(/２/g, '2').replace(/３/g, '3')
           .replace(/\(コスト\d\)/g, '')
-          .replace(/[ 　・]*([^ 　:：|×\n]+)[ 　:：×]*([^枚\n]+)枚?\n*/g, '{{PopupBattle|$1|×$2}}');
+          .replace(/[ 　・]*(\d+)[ 　:：×]+([^枚\n]+)枚?\n*/g, '{{PopupBattle|$1|×$2}}')
+          .replace(/^(\d+)\n*/g, '{{PopupBattle|$1}}');
       });
       const changePassiveText = document.getElementById('changePassiveText');
       changePassiveText.addEventListener('click', () => {
         let text = getPassiveId(beforeText.value);
         afterText.value = text
           .replace(/[（(][^)）]+[)）]/g, '')
-          .replace(/[：:][0-9０-９]?コスト\d?/g, '')
+          .replace(/[：:][0-9０-９]?コスト[0-9０-９]?/g, '')
           .replace(/・?([^、\n・]+)\n*/g, '{{PopupPassive|$1}}');
       });
       const changeDirection = document.getElementById('changeDirection');
@@ -576,7 +577,7 @@
 </head>
 
 <body>
-  <textarea id="beforeText">変換前</textarea>
+  <textarea id="beforeText" placeholder="変換前"></textarea>
   <button id="changeBattleText">バトルページ変換</button>
   <button id="changePassiveText">パッシブ変換</button>
   <button id="changeDirection">縦横変換</button>
