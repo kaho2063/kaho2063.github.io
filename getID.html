@@ -223,6 +223,11 @@
           .replace('感覚喪失', '507007')
           .replace('燃えたぎる一撃', '508010')
           .replace('猛烈な突進', '508011')
+          .replace('アンガジェマン', '511001')
+          .replace('リポスト', '511002')
+          .replace('フレッシュ', '511003')
+          .replace('ムリネ', '511004')
+          .replace('アン・ガルド', '511005')
           .replace('感情の激動', '601001')
           .replace('内なる熱血', '601002')
           .replace('剣の流れ', '601003')
@@ -362,6 +367,9 @@
           .replace('安如泰山', '250003')
           .replace('安不忘危', '250004')
           .replace('速度3', '10008')
+          .replace('速度３', '10008')
+          .replace('速度2', '10004')
+          .replace('速度２', '10004')
           .replace('速度', '10001')
           .replace('生半可な勇気', '200004')
           .replace('ユンの勘', '200006')
@@ -431,6 +439,7 @@
           .replace('一撃', '240002')
           .replace('加速', '240004')
           .replace('脳震盪', '240005')
+          .replace('脳震', '240005')
           .replace('人形の骨', '240006')
           .replace('高難度の曲芸', '240308')
           .replace('獅子の拳', '240408')
@@ -531,8 +540,14 @@
       });
       const changeDeckPage = document.getElementById('changeDeckPage');
       changeDeckPage.addEventListener('click', () => {
+        let deleteElements = document.querySelectorAll('#afterText ~ *');
+
+        Array.prototype.forEach.call(deleteElements, element => {
+          element.remove();
+        });
+
         let textArray = beforeText.value
-          .replace(/\{\{(PostingDeck|VotingEndDeck)\n\|deckName=.+/g, '{{DeckPage')
+          .replace(/\{\{(PostingDeck|VotingEndDeck)/g, '{{DeckPage')
           .replace(/OldDeck(Set)?Table/g, 'Deck$1Table')
           .replace(/\|numberOfPassive=\d/g, '|passiveParts=')
           .replace(/\|passive\dCost=\d\n/g, '')
@@ -545,6 +560,8 @@
           .replace(/\|otherBattle=\n?/g, '')
           .replace(/OldDeckSetMemberParts/g, 'DeckSetMemberParts')
           .replace(/colspan="2"\{\{!\}\}/g, '')
+          .replace(/<tabber>\n未選択=/g, '')
+          .replace(/\n<\/tabber>\n?/g, '')
           .split(/\r?\n/g);
 
         textArray = textArray.map(text => {
@@ -570,7 +587,34 @@
           return returnValue;
         });
 
-        afterText.value = textArray.join("\n");
+        let textareaArray = textArray.join("\n").split(/\n(\|-\|\n[^|{}].+=|<hr>)\n/g);
+
+        if (textareaArray[0].length <= 0)
+          textareaArray.shift();
+
+        afterText.value = textareaArray.shift();
+
+        if (textareaArray.length > 0) {
+          textareaArray.forEach(text => {
+            if (text === '<hr>')
+              return true;
+
+            let deckNameMatch = text.match(/\n\|deckName=(.+)/);
+            let linkElement = document.createElement('a');
+            linkElement.target = '_blank';
+            linkElement.rel = 'noopener noreferrer';
+            linkElement.textContent = deckNameMatch[1];
+            let baseUrl = 'https://library-of-ruina.fandom.com/ja/wiki/デッキ図書棚/' + (/DeckSetTable/.test(text) ? 'デッキセット/' : 'デッキ/');
+            linkElement.href = baseUrl + deckNameMatch[1] + '?veaction=editsource';
+            afterText.parentElement.appendChild(linkElement);
+
+            let textareaElement = document.createElement('textarea');
+            textareaElement.value = text
+              .replace(/\n\|deckName=.+/g, '')
+              + "\n[[カテゴリ:デッキ/コアページ/|{{SUBPAGENAME}}]]\n[[カテゴリ:デッキ/作成可能時期/|{{SUBPAGENAME}}]]";
+            afterText.parentElement.appendChild(textareaElement);
+          });
+        }
       });
     });
   </script>
