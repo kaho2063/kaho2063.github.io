@@ -235,15 +235,10 @@
           .replace('速剣', '601005')
           .replace('一網打尽', '601006')
           .replace('正面突破', '601007')
-          .replace('感情の激動', '601001')
-          .replace('内なる熱血', '601002')
-          .replace('剣の流れ', '601003')
-          .replace('堅固な守り', '601004')
-          .replace('速剣', '601005')
-          .replace('一網打尽', '601006')
-          .replace('正面突破', '601007')
+          .replace('押し寄せる愛', '606001')
           .replace('押し寄せる-愛', '606001')
           .replace('押し寄せる-一撃', '601014')
+          .replace('押し寄せる一撃', '601014')
           .replace('押し寄せる', '601008')
           .replace('鉄山靠', '601009')
           .replace('疾風脚', '601010')
@@ -284,6 +279,7 @@
           .replace('鎖縛り', '605006')
           .replace('多重斬り', '605007')
           .replace('多重切り', '605007')
+          .replace('解禁Ⅰ', '605008')
           .replace('解禁-Ⅰ', '605008')
           .replace('解禁', '605008')
           .replace('焔龍拳', '606002')
@@ -296,6 +292,7 @@
           .replace('縦切り', '607003')
           .replace('縦斬り', '607003')
           .replace('突き', '607004')
+          .replace('横切り', '607003')
           .replace('横斬り', '607005')
           .replace('気合い', '607006')
           .replace('サイの突進', '608006')
@@ -381,6 +378,7 @@
           .replace('鈎', '200010')
           .replace('即席料理', '210002')
           .replace('非常食', '210001')
+          .replace('陰鬱な技量', '250012')
           .replace('技量', '210003')
           .replace('ファイヤーバット', '210006')
           .replace('傷口抉り', '211003')
@@ -465,10 +463,8 @@
           .replace('追加補給', '250009')
           .replace('緊急蘇生', '250010')
           .replace('力場', '250011')
-          .replace('陰鬱な技量', '250012')
           .replace('充電高調1', '250110')
           .replace('充電高調2', '250210')
-          .replace('青い残響', '250113')
           .replace('内燃機関', '250014')
           .replace('肉の歯車', '250114')
           .replace('考えの歯車', '250214')
@@ -479,7 +475,6 @@
           .replace('火光衝天', '250018')
           .replace('燎原之火', '250020')
           .replace('抱火臥薪', '250021')
-          .replace('カーリー', '250022')
           .replace('伝説', '250122')
           .replace('反撃', '250222')
           .replace('最強', '250322')
@@ -530,13 +525,14 @@
         afterText.value = text
           .replace(/[（(][^)）]+[)）]/g, '')
           .replace(/[：:][0-9０-９]?コスト[0-9０-９]?/g, '')
-          .replace(/・?([^、\n・]+)\n*/g, '{{PopupPassive|$1}}');
+          .replace(/・?([^、\n・]+)、?\n*/g, '{{PopupPassive|$1}}');
       });
-      const changeDirection = document.getElementById('changeDirection');
-      changeDirection.addEventListener('click', () => {
-        let text = beforeText.value;
-        afterText.value = text
+      const changeDeckType = document.getElementById('changeDeckType');
+      changeDeckType.addEventListener('click', () => {
+        let text = beforeText.value
           .replace(/[\n・]+/g, '・');
+        afterText.value = text
+              .replace(/([^、・]+)/g, '{{LinkDeckType|$1}}');
       });
       const changeDeckPage = document.getElementById('changeDeckPage');
       changeDeckPage.addEventListener('click', () => {
@@ -568,8 +564,8 @@
           let returnValue = text;
           if (/deck(Set)?Type=/g.test(text)) {
             returnValue = text
-              .replace(/deck(Set)?Type=([^、・]+)/g, 'deck$1Type={{LinkDeckType|$2}}')
-              .replace(/([、・])([^、・]+)/g, '$1{{LinkDeckType|$2}}');
+              .replace(/deck(Set)?Type=([^{、・]+)/g, 'deck$1Type={{LinkDeckType|$2}}')
+              .replace(/([、・])([^{、・]+)/g, '$1{{LinkDeckType|$2}}');
           }
           if (/corePage=/g.test(text)) {
             returnValue = text
@@ -589,17 +585,15 @@
 
         let textareaArray = textArray.join("\n").split(/\n(\|-\|\n[^|{}].+=|<hr>)\n/g);
 
-        if (textareaArray[0].length <= 0)
-          textareaArray.shift();
-
-        afterText.value = textareaArray.shift();
-
         if (textareaArray.length > 0) {
           textareaArray.forEach(text => {
-            if (text === '<hr>')
-              return true;
-
             let deckNameMatch = text.match(/\n\|deckName=(.+)/);
+            let corePageArray = text.match(/\{\{PopupCorePage‎\|[^の]+のページ[^}]*\}\}/g);
+            if (deckNameMatch === null || deckNameMatch.length < 1
+              || corePageArray === null || corePageArray.length < 1) {
+              return true;
+            }
+
             let linkElement = document.createElement('a');
             linkElement.target = '_blank';
             linkElement.rel = 'noopener noreferrer';
@@ -609,9 +603,14 @@
             afterText.parentElement.appendChild(linkElement);
 
             let textareaElement = document.createElement('textarea');
-            textareaElement.value = text
-              .replace(/\n\|deckName=.+/g, '')
-              + "\n[[カテゴリ:デッキ/コアページ/|{{SUBPAGENAME}}]]\n[[カテゴリ:デッキ/作成可能時期/|{{SUBPAGENAME}}]]";
+            textareaElement.value = text.replace(/\n\|deckName=.+/g, '');
+
+            textareaElement.value += "\n";
+            corePageArray.forEach(corePagetext => {
+              textareaElement.value += "[[カテゴリ:デッキ/コアページ/" + corePagetext.replace(/\{\{PopupCorePage‎\|([^の]+)のページ([^}]*)\}\}/, '$1$2') + "|{{SUBPAGENAME}}]]";
+            });
+
+            textareaElement.value += "\n[[カテゴリ:デッキ/作成可能時期/|{{SUBPAGENAME}}]]";
             afterText.parentElement.appendChild(textareaElement);
           });
         }
@@ -624,7 +623,7 @@
   <textarea id="beforeText" placeholder="変換前"></textarea>
   <button id="changeBattleText">バトルページ変換</button>
   <button id="changePassiveText">パッシブ変換</button>
-  <button id="changeDirection">縦横変換</button>
+  <button id="changeDeckType">デッキタイプ変換</button>
   <button id="changeDeckPage">DeckPage変換</button>
   <textarea id="afterText">変換後</textarea>
 </body>
