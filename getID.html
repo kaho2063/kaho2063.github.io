@@ -228,6 +228,16 @@
           .replace('フレッシュ', '511003')
           .replace('ムリネ', '511004')
           .replace('アン・ガルド', '511005')
+          .replace('抜剣', '512001')
+          .replace('刺法', '512002')
+          .replace('肉斬', '512003')
+          .replace('殺主', '512004')
+          .replace('処断', '512005')
+          .replace('骨断', '512006')
+          .replace('踏みにじる', '513002')
+          .replace('詰め込む', '513003')
+          .replace('絶妙な瞬間', '513004')
+          .replace('内臓溢し', '513005')
           .replace('感情の激動', '601001')
           .replace('内なる熱血', '601002')
           .replace('剣の流れ', '601003')
@@ -506,7 +516,11 @@
           .replace('12フィクサー', '260004')
           .replace('弱点把握', '243001')
           .replace('情報把握', '243101')
-          .replace('弱点看破', '243201');
+          .replace('弱点看破', '243201')
+          .replace('本国剣術', '243003')
+          .replace('傷刻み', '243005')
+          .replace('したたか', '243105')
+          .replace('傷裂き', '243205');
       };
       const beforeText = document.getElementById('beforeText');
       const afterText = document.getElementById('afterText');
@@ -532,7 +546,7 @@
         let text = beforeText.value
           .replace(/[\n・]+/g, '・');
         afterText.value = text
-              .replace(/([^、・]+)/g, '{{LinkDeckType|$1}}');
+          .replace(/([^、・]+)/g, '{{LinkDeckType|$1}}');
       });
       const changeDeckPage = document.getElementById('changeDeckPage');
       changeDeckPage.addEventListener('click', () => {
