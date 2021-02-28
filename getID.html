@@ -597,12 +597,12 @@
           return returnValue;
         });
 
-        let textareaArray = textArray.join("\n").split(/\n(\|-\|\n[^|{}].+=|<hr>)\n/g);
+        let textareaArray = textArray.join("\n").split(/\n(\|-\|\n[^|{}].+=)\n/g);
 
         if (textareaArray.length > 0) {
           textareaArray.forEach(text => {
             let deckNameMatch = text.match(/\n\|deckName=(.+)/);
-            let corePageArray = text.match(/\{\{PopupCorePage‎\|[^の]+のページ[^}]*\}\}/g);
+            let corePageArray = text.match(/(\{\{PopupCorePage‎\|[^の]+のページ[^}]*\}\}|司書補)/g);
             if (deckNameMatch === null || deckNameMatch.length < 1
               || corePageArray === null || corePageArray.length < 1) {
               return true;
