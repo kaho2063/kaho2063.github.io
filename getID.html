@@ -602,7 +602,7 @@
         if (textareaArray.length > 0) {
           textareaArray.forEach(text => {
             let deckNameMatch = text.match(/\n\|deckName=(.+)/);
-            let corePageArray = text.match(/(\{\{PopupCorePage‎\|[^の]+のページ[^}]*\}\}|司書補)/g);
+            let corePageArray = text.match(/(\{\{PopupCorePage‎\|[^}]+のページ[^}]*\}\}|司書補)/g);
             if (deckNameMatch === null || deckNameMatch.length < 1
               || corePageArray === null || corePageArray.length < 1) {
               return true;
@@ -621,7 +621,7 @@
 
             textareaElement.value += "\n";
             corePageArray.forEach(corePagetext => {
-              textareaElement.value += "[[カテゴリ:デッキ/コアページ/" + corePagetext.replace(/\{\{PopupCorePage‎\|([^の]+)のページ([^}]*)\}\}/, '$1$2') + "|{{SUBPAGENAME}}]]";
+              textareaElement.value += "[[カテゴリ:デッキ/コアページ/" + corePagetext.replace(/\{\{PopupCorePage‎\|([^}]+)のページ([^}]*)\}\}/, '$1$2') + "|{{SUBPAGENAME}}]]";
             });
 
             textareaElement.value += "\n[[カテゴリ:デッキ/作成可能時期/|{{SUBPAGENAME}}]]";
