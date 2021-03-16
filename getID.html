@@ -622,8 +622,14 @@
 
                 let textareaArray = textArray.join("\n").split(/\n(\|-\|\n[^|{}].+=)\n/g);
                 textareaArray = textareaArray.sort((a, b) => {
-                    let commentId_a = a.match(/\n\|commentId=(\d+)/) ?? [null, 0];
-                    let commentId_b = b.match(/\n\|commentId=(\d+)/) ?? [null, 0];
+                    let commentId_a = a.match(/\n\|commentId=(\d+)/);
+                    if (commentId_a === null)
+                        commentId_a = [null, 0];
+
+                    let commentId_b = b.match(/\n\|commentId=(\d+)/);
+                    if (commentId_b === null)
+                        commentId_b = [null, 0];
+
                     if (commentId_a[1] < commentId_b[1]) return -1;
                     if (commentId_a[1] > commentId_b[1]) return 1;
                     return 0;
