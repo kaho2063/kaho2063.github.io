@@ -209,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace('隠し刃', '507005')
       .replace('煙管', '507006')
       .replace('感覚喪失', '507007')
+      .replace('再び燃えたぎる一撃', '704008')
       .replace('燃えたぎる一撃', '508010')
       .replace('猛烈な突進', '508011')
       .replace('アンガジェマン', '511001')
