@@ -368,7 +368,11 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace('アレグロ', '704011')
       .replace('ラルゴ', '704012')
       .replace('共鳴する鎌', '704013')
-      .replace('乱舞', '704014');
+      .replace('乱舞', '704014')
+      .replace('朱い爪', '704015')
+      .replace('過速', '704016')
+      .replace('威嚇', '704017')
+      .replace('鶏の奇声', '704018');
   };
   const getPassiveId = (text) => {
     return text
@@ -619,80 +623,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     return textareaArray;
   };
-  const changeDeckPage = document.getElementById('changeDeckPage');
-  if (changeDeckPage === null)
-    return;
-
-  changeDeckPage.addEventListener('click', () => {
-    let deleteElements = document.querySelectorAll('#afterText ~ *');
-
-    Array.prototype.forEach.call(deleteElements, element => {
-      element.remove();
-    });
-
-    let textareaArray = getTextareaArray(beforeText.value);
-
-    if (textareaArray.length > 0) {
-      textareaArray.forEach(text => {
-        let deckNameMatch = text.match(/\n\|deckName=(.+)/);
-        if (deckNameMatch === null || deckNameMatch.length < 1)
-          return true;
-
-        let linkElement = document.createElement('a');
-        linkElement.target = '_blank';
-        linkElement.rel = 'noopener noreferrer';
-        linkElement.textContent = deckNameMatch[1];
-        let baseUrl = 'https://library-of-ruina.fandom.com/ja/wiki/デッキ図書棚/' + (/DeckSetTable/.test(text) ? 'デッキセット/' : 'デッキ/');
-        linkElement.href = baseUrl + deckNameMatch[1] + '?veaction=editsource';
-        afterText.parentElement.appendChild(linkElement);
-
-        let textareaElement = document.createElement('textarea');
-        textareaElement.value = text.replace(/\n\|deckName=.+/g, '');
-
-        textareaElement.value += "\n";
-        let corePageArray = text.match(/(\{\{PopupCorePage‎\|[^}]+のページ[^}]*\}\}|司書補)/g);
-        if (corePageArray !== null && corePageArray.length > 0) {
-          corePageArray.forEach(corePagetext => {
-            textareaElement.value += "[[カテゴリ:デッキ/コアページ/" + corePagetext.replace(/\{\{PopupCorePage‎\|([^}]+)のページ([^}]*)\}\}/, '$1$2') + "|{{SUBPAGENAME}}]]";
-          });
-        }
-
-        textareaElement.value += "\n[[カテゴリ:デッキ/作成可能時期/|{{SUBPAGENAME}}]]";
-        afterText.parentElement.appendChild(textareaElement);
-      });
-    }
-  });
-  const changeDeckListTable = document.getElementById('changeDeckListTable');
-  changeDeckListTable.addEventListener('click', () => {
-    let textareaArray = getTextareaArray(beforeText.value);
-
-    let setText = '{|class="old-deck-list-table sortable"\n';
-    setText += '!デッキ名\n';
-    setText += '!class="unsortable" style="white-space: nowrap;"{{!}}コアページ\n';
-    setText += '!style="width: 4.5em;"{{!}}作成可能<br>時期\n';
-    setText += '{{!-}}\n';
-    setText += '!colspan="5"{{!}}デッキの内容\n';
-    setText += textareaArray.reduce((prev, current) => {
-      let deckNameMatch = current.match(/\n\|deckName=(.+)/);
-      if (deckNameMatch === null || deckNameMatch.length < 1)
-        return prev;
-      prev += '{{!-}}\n';
-      prev += '{{!}}data-sort-value="' + deckNameMatch[1] + '"{{!}}' + deckNameMatch[1] + '\n';
-      prev += '{{!}}';
-      let corePageArray = current.match(/(\{\{PopupCorePage‎\|[^}]+のページ[^}]*\}\}|司書補)/g);
-      if (corePageArray !== null && corePageArray.length > 0) {
-        prev += corePageArray.map(corePagetext => {
-          return '[[' + corePagetext.replace(/\{\{PopupCorePage‎\|([^}]+のページ[^}]*)\}\}/, '$1') + ']]';
-        }).join('/');
-      }
-      prev += '\n';
-      prev += '{{!}}data-sort-value="3" style="white-space: nowrap;"{{!}}[[招待#都市伝説|都市伝説]]\n';
-      prev += '{{!-}}\n';
-      prev += '{{!}}data-sort-value="' + deckNameMatch[1] + '" colspan="2"{{!}}\n';
-      current += '\n';
-      current += '{{!}}data-sort-value="3" style="display: none;"{{!}}\n';
-      return prev + current.replace(/\{\{DeckPage/g, '{{VotingEndDeck');
-    }, '');
-    afterText.value = setText + '{{!}}}\n';
-  });
 });
