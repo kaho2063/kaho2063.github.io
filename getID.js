@@ -403,7 +403,8 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace('ファイヤーバット', '210006')
       .replace('傷口抉り', '211003')
       .replace('深呼吸', '220010')
-      .replace('呼吸', '240003')
+      .replace('呼吸', '221001')
+      .replace('呼吸t', '240003')
       .replace('冷静', '220001')
       .replace('ツヴァイの剣術1', '220002')
       .replace('ツヴァイの剣術2', '221003')
@@ -571,56 +572,4 @@ document.addEventListener('DOMContentLoaded', () => {
     afterText.value = text
       .replace(/([^、・]+)/g, '{{LinkDeckType|$1}}');
   });
-  const getTextareaArray = (text) => {
-    let textArray = text
-      .replace(/\{\{(PostingDeck|VotingEndDeck)/g, '{{DeckPage')
-      .replace(/OldDeck(Set)?Table/g, 'Deck$1Table')
-      .replace(/\|numberOfPassive=\d/g, '|passiveParts=')
-      .replace(/\|passive\dCost=\d\n/g, '')
-      .replace(/\n(\|passive\d=[^\n]+)/g, '$1')
-      .replace(/\|otherPassive=\n?/g, '')
-      .replace(/\|numberOfRows=\d/g, '|battleParts=')
-      .replace(/\|costOfBattle\d=\d\n/g, '')
-      .replace(/\n(\|battle\d=[^\n]+)/g, '$1')
-      .replace(/\n\|numberOfBattle\d=([^\n])/g, '×$1')
-      .replace(/\|otherBattle=\n?/g, '')
-      .replace(/OldDeckSetMemberParts/g, 'DeckSetMemberParts')
-      .replace(/colspan="2"\{\{!\}\}/g, '')
-      .replace(/<tabber>\n未選択=/g, '')
-      .replace(/\n<\/tabber>\n?/g, '')
-      .split(/\r?\n/g);
-
-    textArray = textArray.map(text => {
-      let returnValue = text;
-      if (/deck(Set)?Type=/g.test(text)) {
-        returnValue = text
-          .replace(/deck(Set)?Type=([^{、・]+)/g, 'deck$1Type={{LinkDeckType|$2}}')
-          .replace(/([、・])([^{、・]+)/g, '$1{{LinkDeckType|$2}}');
-      }
-      if (/corePage=/g.test(text)) {
-        returnValue = text
-          .replace(/corePage=/g, 'coreParts=')
-          .replace(/\[\[([^\]]+のページ[^\]]*)\]\]/g, '{{PopupCorePage‎|$1}}');
-      }
-      if (/passive\d=/g.test(text)) {
-        returnValue = getPassiveId(text.replace(/([^（]+)（[^）]+）/g, '$1'))
-          .replace(/\|passive\d=(\d+)/g, '{{PopupPassive|$1}}');
-      }
-      if (/battle\d=/g.test(text)) {
-        returnValue = getBattleId(text.replace(/([^\(]+)\(コスト\d\)/g, '$1'))
-          .replace(/\|battle\d=(\d+)([^×]*)(×[^|]+)/g, '{{PopupBattle|$1|$3}}$2');
-      }
-      return returnValue;
-    });
-
-    let textareaArray = textArray.join("\n").split(/\n(\|-\|\n[^|{}].+=)\n/g);
-    textareaArray = textareaArray.sort((a, b) => {
-      let commentId_a = a.match(/\n\|commentId=(\d+)/) ?? [null, 0];
-      let commentId_b = b.match(/\n\|commentId=(\d+)/) ?? [null, 0];
-      if (commentId_a[1] < commentId_b[1]) return -1;
-      if (commentId_a[1] > commentId_b[1]) return 1;
-      return 0;
-    });
-    return textareaArray;
-  };
 });
