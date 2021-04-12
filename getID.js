@@ -372,7 +372,26 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace('朱い爪', '704015')
       .replace('過速', '704016')
       .replace('威嚇', '704017')
-      .replace('鶏の奇声', '704018');
+      .replace('鶏の奇声', '704018')
+      .replace('結束：強化', '705002')
+      .replace('結束：連携', '705003')
+      .replace('結束：守護', '705004')
+      .replace('共鳴調節', '705010')
+      .replace('クレッシェンド', '705011')
+      .replace('大団円', '705012')
+      .replace('押し寄せる安息の腕', '705013')
+      .replace('永遠なる渇き', '705014')
+      .replace('拘束の糸', '705015')
+      .replace('漆黒の強撃', '705016')
+      .replace('クライマックス～！！！', '705017')
+      .replace('タックルマウント', '705018')
+      .replace('絶頂の合唱', '705019')
+      .replace('考えの歯車：洗礼', '705020')
+      .replace('絶望の炎', '705021')
+      .replace('炸裂する絶望', '705022')
+      .replace('試食', '705031')
+      .replace('影の襲撃', '705032')
+      .replace('開幕式', '705033');
   };
   const getPassiveId = (text) => {
     return text
