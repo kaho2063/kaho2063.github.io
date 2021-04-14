@@ -1,17 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const hierarchyValues = {
-    '特になし': '0',
-    '[[歴史の階]]': '1',
-    '[[技術科学の階]]': '2',
-    '[[文学の階]]': '3',
-    '[[芸術の階]]': '4',
-    '[[自然科学の階]]': '5',
-    '[[言語の階]]': '6',
-    '[[社会科学の階]]': '7',
-    '[[哲学の階]]': '8',
-    '[[宗教の階]]': '9',
-    '[[総記の階]]': '10',
-  }
   const getBattleId = (text) => {
     return text
       .replace('正面回避', '409003')
@@ -696,8 +683,5 @@ document.addEventListener('DOMContentLoaded', () => {
         afterText.parentElement.appendChild(textareaElement);
       });
     }
-  });
-  const changeDeckListTable = document.getElementById('changeDeckListTable');
-  changeDeckListTable.addEventListener('click', () => {
   });
 });
