@@ -8,16 +8,116 @@
       width: 600px;
       display: block;
     }
+
+    .info {
+      position: absolute;
+      top: 0;
+      right: 1rem;
+      width: calc(100vw - 650px);
+    }
+
+    .tabItem {
+      border: 1px #AAA solid;
+      background-color: white;
+      font-size: 16px;
+      padding: 0.5em;
+      display: inline-block;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 3px;
+      filter: drop-shadow(3px 3px 0 #AAA);
+      cursor: pointer;
+      margin: 3px;
+    }
+
+    .tabItem:hover {
+      opacity: 0.75;
+    }
+
+    /*ラジオボタンを全て消す*/
+    input[name="tabItem"] {
+      display: none;
+    }
+
+    /*タブ切り替えの中身のスタイル*/
+    .tabContent {
+      display: none;
+    }
+
+    /*選択されているタブのコンテンツのみを表示*/
+    #changeDeckType_:checked~#changeDeckTypeInfo,
+    #changePassiveText_:checked~#changePassiveTextInfo,
+    #changeBattleText_:checked~#changeBattleTextInfo {
+      display: block;
+    }
+
+    /*選択されているタブのスタイルを変える*/
+    .info input:checked+.tabItem {
+      border: 1px #667d80 solid;
+      background-color: #667d80;
+      color: #fff;
+    }
   </style>
   <script src="./getID.js"></script>
 </head>
 
 <body>
-  <a target="_blank" rel="noopener noreferrer" href="https://store.steampowered.com/news/app/1256670/view/3120406755540057707">ver 1.0.4.5a3対応</a>
+  <div class="info">
+    <h3>説明</h3>
+    <input id="changeDeckType_" type="radio" name="tabItem" checked>
+    <label class="tabItem" for="changeDeckType_">デッキタイプ変換</label>
+    <input id="changePassiveText_" type="radio" name="tabItem">
+    <label class="tabItem" for="changePassiveText_">パッシブ変換</label>
+    <input id="changeBattleText_" type="radio" name="tabItem">
+    <label class="tabItem" for="changeBattleText_">バトルページ変換</label>
+    <div class="tabContent" id="changeDeckTypeInfo">
+      <p>デッキタイプを<a target="_blank" rel="noopener noreferrer"
+          href="https://library-of-ruina.fandom.com/ja/wiki/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88:LinkDeckType">LinkDeckType</a>を使った形に変換する
+      </p>
+      <p>変換例</p>
+      <ul>
+        <li>幻想体依存</li>
+        <li>パワー</li>
+      </ul>
+      ↓
+      <p>{{LinkDeckType|幻想体依存}}・{{LinkDeckType|パワー}}(改行なし)</p>
+    </div>
+    <div class="tabContent" id="changePassiveTextInfo">
+      <p>パッシブを<a target="_blank" rel="noopener noreferrer"
+          href="https://library-of-ruina.fandom.com/ja/wiki/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88:PopupPassive">PopupPassive</a>を使った形に変換する
+      </p>
+      <p>変換例</p>
+      <ul>
+        <li>精神回収</li>
+        <li>体力回収</li>
+      </ul>
+      ↓
+      <p>{{PopupPassive|240015}}{{PopupPassive|240016}}(改行なし)</p>
+    </div>
+    <div class="tabContent" id="changeBattleTextInfo">
+      <p>バトルページ名と枚数を<a target="_blank" rel="noopener noreferrer"
+          href="https://library-of-ruina.fandom.com/ja/wiki/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88:PopupBattle">PopupBattle</a>を使った形に変換する
+      </p>
+      <p>変換例</p>
+      <ul>
+        <li>回避：1枚</li>
+        <li>た耐える：2枚</li>
+        <li>受けてみろ：3枚</li>
+        <li>圧倒：3枚</li>
+        <li>複製：3枚</li>
+      </ul>
+      ↓
+      <p>
+        {{PopupBattle|000001|×1}}{{PopupBattle|103004|×2}}{{PopupBattle|104003|×3}}{{PopupBattle|104001|×3}}{{PopupBattle|608016|×3}}(改行なし)
+      </p>
+    </div>
+  </div>
+  <a target="_blank" rel="noopener noreferrer"
+    href="https://store.steampowered.com/news/app/1256670/view/3120406755540057707">ver 1.0.4.5a3対応</a>
   <textarea id="beforeText" placeholder="変換前"></textarea>
-  <button id="changeBattleText">バトルページ変換</button>
-  <button id="changePassiveText">パッシブ変換</button>
   <button id="changeDeckType">デッキタイプ変換</button>
+  <button id="changePassiveText">パッシブ変換</button>
+  <button id="changeBattleText">バトルページ変換</button>
   <textarea id="afterText">変換後</textarea>
 </body>
 
