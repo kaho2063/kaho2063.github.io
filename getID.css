@@ -1,0 +1,56 @@
+textarea {
+  height: 200px;
+  width: 600px;
+  display: block;
+}
+
+.info {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  width: calc(100vw - 650px);
+}
+
+.tabItem {
+  border: 1px #AAA solid;
+  background-color: white;
+  font-size: 16px;
+  padding: 0.5em;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 3px;
+  filter: drop-shadow(3px 3px 0 #AAA);
+  cursor: pointer;
+  margin: 3px;
+}
+
+.tabItem:hover {
+  opacity: 0.75;
+}
+
+/*ラジオボタンを全て消す*/
+
+input[name="tabItem"] {
+  display: none;
+}
+
+/*タブ切り替えの中身のスタイル*/
+
+.tabContent {
+  display: none;
+}
+
+/*選択されているタブのコンテンツのみを表示*/
+
+#changeDeckType_:checked~#changeDeckTypeInfo, #changePassiveText_:checked~#changePassiveTextInfo, #changeBattleText_:checked~#changeBattleTextInfo, #changeDeckPage_:checked~#changeDeckPageInfo, #createDeckList_:checked~#createDeckListInfo {
+  display: block;
+}
+
+/*選択されているタブのスタイルを変える*/
+
+.info input:checked+.tabItem {
+  border: 1px #667d80 solid;
+  background-color: #667d80;
+  color: #fff;
+}
