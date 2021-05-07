@@ -63,7 +63,7 @@
     let version = deckData['version'];
     let videoLinks = deckData['videoLinks'];
 
-    let text = '{{#switch:{{SUBPAGENAME}}|デッキ図書棚|デッキ' + (deckSetFlag ? 'セット' : '');
+    let text = '{{#switch:{{SUBPAGENAME}}|デッキ考察|デッキ図書棚|デッキ' + (deckSetFlag ? 'セット' : '');
 
     if (deckTypes.length > 0)
       text += '|' + deckTypes.join('|');
