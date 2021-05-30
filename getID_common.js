@@ -583,6 +583,7 @@ var getID_common = getID_common || {};
       .replace('手品', '234001')
       .replace('抜き取り', '234002')
       .replace('蜃気楼', '253001')
+      .replace('鷹の目', '253002')
       .replace('ホルスの目', '253002')
       .replace('砂嵐', '253003')
       .replace('保険補償', '254001')
