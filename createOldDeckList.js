@@ -52,7 +52,8 @@
     let timingForCreateValue = timingForCreateValues[timingForCreate];
     let hierarchyValue = hierarchies.length === 1 ? hierarchyValues[hierarchies[0]] : '0';
 
-    let text = '{{!-}}data-comment-id="' + commentId + '"\n';
+    let text = ',\n';
+    text += '["' + commentId + '"] = [=[{{!-}}\n';
     text += '{{!}}data-sort-value="' + deckName + '"{{!}}' + deckName + '\n';
     text += '{{!}}' + corePages.map(corePage => '[[' + corePage + 'のページ]]').join('/') + '\n';
     text += '{{!}}data-sort-value="' + timingForCreateValue + '" style="white-space: nowrap;"{{!}}[[招待#' + timingForCreate.replace(/ [\d,]+段目/, '') + '|' + timingForCreate.replace(' ', '<br>') + ']]\n';
@@ -65,7 +66,7 @@
     text += '}}\n';
     text += '{{!}}data-sort-value="' + timingForCreateValue + '" style="display: none;"{{!}}\n';
     text += '{{!}}data-sort-value="' + hierarchyValue + '" colspan="2" style="display: none;"{{!}}\n';
-    text += '{{!-}}\n';
+    text += '{{!-}}]=]\n';
     return text;
   };
   const getDeckData = (d, deckFilter) => {
