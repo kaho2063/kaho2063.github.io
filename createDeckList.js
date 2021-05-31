@@ -25,7 +25,8 @@
     '1.0.4.0': '10',
     '1.0.4.2': '11',
     '1.0.4.4b': '12',
-    '': '13',
+    '1.1.0.3': '13',
+    '': '14',
   };
   const hierarchyValues = {
     '特になし': '0',
@@ -52,7 +53,7 @@
     '都市の星 3段目クリア後': '6-3',
     '不純物 1段目クリア後': '7-1',
     '不純物 2段目クリア後': '7-2',
-    '不純物 3段目クリア後': '7-3'
+    '不純物 3,4段目クリア後': '7-3'
   };
   const getDeckRecordText = (deckSetFlag, deckData, commentId) => {
     let deckName = deckData['deckName'];
@@ -71,7 +72,12 @@
     if (corePages.length > 0)
       text += '|' + corePages.join('|');
 
-    text += '|' + timingForCreate + '=\n';
+    text += '|' + timingForCreate;
+
+    if (hierarchies.length > 0)
+      text += '|' + hierarchies.join('|');
+
+    text += '=\n';
 
     text += '{{!-}}data-comment-id="' + commentId + '"\n';
     text += '{{!}}data-sort-value="' + deckName + '"{{!}}[[デッキ図書棚/デッキ' + (deckSetFlag ? 'セット' : '') + '/' + deckName + '|' + deckName + ']]\n';
