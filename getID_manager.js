@@ -30,15 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (/corePage=/g.test(text)) {
         returnValue = text
           .replace(/corePage=/g, 'coreParts=')
-          .replace(/\[\[([^\]]+のページ[^\]]*)\]\]/g, '{{PopupCorePage‎|$1}}');
+          .replace(/\[\[([^\]]+のページ[^\]]*)\]\]/g, '{{#invoke:Popup|getCorePage‎|$1}}');
       }
       if (/passive\d=/g.test(text)) {
         returnValue = getID_common.getPassiveId(text.replace(/([^（]+)（[^）]+）/g, '$1'))
-          .replace(/\|passive\d=(\d+)/g, '{{PopupPassive|$1}}');
+          .replace(/\|passive\d=(\d+)/g, '{{#invoke:Popup|getPassive|$1}}');
       }
       if (/battle\d=/g.test(text)) {
         returnValue = getID_common.getBattleId(text.replace(/([^\(]+)\(コスト\d\)/g, '$1'))
-          .replace(/\|battle\d=(\d+)([^×]*)(×[^|]+)/g, '{{PopupBattle|$1|$3}}$2');
+          .replace(/\|battle\d=(\d+)([^×]*)(×[^|]+)/g, '{{#invoke:Popup|getBattlePage|$1|$3}}$2');
       }
       return returnValue;
     });
@@ -81,10 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
         textareaElement.value = text.replace(/\n\|deckName=.+/g, '');
 
         textareaElement.value += "\n";
-        let corePageArray = text.match(/(\{\{PopupCorePage‎\|[^}]+のページ[^}]*\}\}|司書補)/g);
+        let corePageArray = text.match(/(\{\{#invoke:Popup|getCorePage‎\|[^}]+のページ[^}]*\}\}|司書補)/g);
         if (corePageArray !== null && corePageArray.length > 0) {
           corePageArray.forEach(corePagetext => {
-            textareaElement.value += "[[カテゴリ:デッキ/コアページ/" + corePagetext.replace(/\{\{PopupCorePage‎\|([^}]+)のページ([^}]*)\}\}/, '$1$2') + "|{{SUBPAGENAME}}]]";
+            textareaElement.value += "[[カテゴリ:デッキ/コアページ/" + corePagetext.replace(/\{\{#invoke:Popup|getCorePage‎\|([^}]+)のページ([^}]*)\}\}/, '$1$2') + "|{{SUBPAGENAME}}]]";
           });
         }
 
