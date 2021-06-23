@@ -56,7 +56,6 @@ var getID_common = getID_common || {};
       .replace('料理の支度', '201004')
       .replace('食材狩り', '201005')
       .replace('残酷', '201006')
-      .replace('渇き', '201007')
       .replace('弾く', '202001')
       .replace('心構え', '202002')
       .replace('心構え', '202012')
@@ -624,7 +623,9 @@ var getID_common = getID_common || {};
       .replace('操り糸', '260012')
       .replace('吸血鬼', '260013')
       .replace('契約', '260014')
+      .replace('ヌオーボ生地', '1300001')
       .replace('ヌオーヴォ生地', '1300001')
+      .replace('ヌォーボ生地', '1300001')
       .replace('ヌォーヴォ生地', '1300001');
   };
 }(this)); //名前空間の終わり
