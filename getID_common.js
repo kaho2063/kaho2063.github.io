@@ -430,6 +430,7 @@ var getID_common = getID_common || {};
       .replace('考えの歯車：洗礼', '705020')
       .replace('絶望の炎', '705021')
       .replace('炸裂する絶望', '705022')
+      .replace('灼熱の絶望', '705022')
       .replace('試食', '705031')
       .replace('影の襲撃', '705032')
       .replace('開幕式', '705033');
