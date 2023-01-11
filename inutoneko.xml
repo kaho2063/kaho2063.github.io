@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+    <channel>
+        <title>犬と猫の記事一覧(詳細) - Ci-en（シエン）</title>
+        <link>https://ci-en.net/creator/4600/article</link>
+        <description>犬と猫の記事一覧(詳細) - Ci-en（シエン）</description>
+        <lastBuildDate>Wed, 11 Jan 2023 17:37:43 GMT</lastBuildDate>
+        <item>
+            <title>c101 アフターレポート</title>
+            <link>https://ci-en.net/creator/4600/article/773370</link>
+            <guid>https://ci-en.net/creator/4600/article/773370</guid>
+            <pubDate>Sat, 07 Jan 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title>2023年 あけましておめでとうございます!!</title>
+            <link>https://ci-en.net/creator/4600/article/772615</link>
+            <guid>https://ci-en.net/creator/4600/article/772615</guid>
+            <pubDate>Sun, 01 Jan 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title>c101 お品書き</title>
+            <link>https://ci-en.net/creator/4600/article/765142</link>
+            <guid>https://ci-en.net/creator/4600/article/765142</guid>
+            <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title>創作と孤独と壁打ち勢</title>
+            <link>https://ci-en.net/creator/4600/article/734166</link>
+            <guid>https://ci-en.net/creator/4600/article/734166</guid>
+            <pubDate>Sat, 24 Dec 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title>AIイラスト ミミックを利用してみた</title>
+            <link>https://ci-en.net/creator/4600/article/756986</link>
+            <guid>https://ci-en.net/creator/4600/article/756986</guid>
+            <pubDate>Sat, 17 Dec 2022 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
