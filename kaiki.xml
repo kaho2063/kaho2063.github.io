@@ -5,9 +5,9 @@
     xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
     <channel>
         <title>ビューが書いた記事 | オモコロ</title>
-        <link>https://omocoro.jp/writer/view?category=kiji&sort=new</link>
+        <link>https://omocoro.jp/writer/view?category=kiji&amp;sort=new</link>
         <description>ビューが書いた記事 | オモコロ</description>
-        <lastBuildDate>Wed, 11 Jan 2023 16:42:17 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 11 Jan 2023 16:49:06 GMT</lastBuildDate>
         <item>
             <title>レッツゴー怪奇組 Part-39 ～愛だ誠だ～</title>
             <link>https://omocoro.jp/kiji/374645/</link>
